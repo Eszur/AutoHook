@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace AutoHook.Ui;
 internal class TabAutoGig : TabBaseConfig
 {
-    public override string TabName => "AutoGig";
+    public override string TabName => "自动刺鱼";
     public override bool Enabled => true;
 
     private readonly List<SpearfishSpeed> _speedTypes = Enum.GetValues(typeof(SpearfishSpeed)).Cast<SpearfishSpeed>().ToList();
@@ -22,13 +22,13 @@ internal class TabAutoGig : TabBaseConfig
     public override void DrawHeader()
     {
         ImGui.Spacing();
-        ImGui.TextWrapped("This is an experimental feature and it might miss the fish. If you find it missing too much, try adjusting the SpearFishing window scale to something different");
+        ImGui.TextWrapped("这是一个实验性的功能，它可能会错过鱼。如果你发现它漏掉了太多的鱼，请尝试将SpearFishing窗口的比例调整为不同的内容。");
         ImGui.Spacing();
     }
 
     public override void Draw()
     {
-        if (DrawUtil.Checkbox("Enable AutoGig", ref Service.Configuration.AutoGigEnabled))
+        if (DrawUtil.Checkbox("启用 AutoGig", ref Service.Configuration.AutoGigEnabled))
         {
             if (Service.Configuration.AutoGigEnabled)
             {
@@ -40,7 +40,7 @@ internal class TabAutoGig : TabBaseConfig
         if (!Service.Configuration.AutoGigEnabled)
         {
             ImGui.Indent();
-            if (DrawUtil.Checkbox("Hide overlay during Spearfishing", ref Service.Configuration.AutoGigHideOverlay, "It'll only hide if the AutoGig option is disabled"))
+            if (DrawUtil.Checkbox("刺鱼时隐藏overlay", ref Service.Configuration.AutoGigHideOverlay, "只有在禁用AutoGig选项的情况下，它才会隐藏"))
             {
                 Service.Configuration.Save();
             }
@@ -49,11 +49,11 @@ internal class TabAutoGig : TabBaseConfig
         } else
         {
             ImGui.Indent();
-            if (DrawUtil.Checkbox("Draw fish hitbox", ref Service.Configuration.AutoGigDrawFishHitbox, "The hitbox its only available for the fish of the Size and Speed selected"))
+            if (DrawUtil.Checkbox("绘制鱼的hitbox(判定框)", ref Service.Configuration.AutoGigDrawFishHitbox, "hitbox(判定框)仅适用于选定大小和速度的鱼"))
             {
                 Service.Configuration.Save();
             }
-            if (DrawUtil.Checkbox("Draw gig hitbox", ref Service.Configuration.AutoGigDrawGigHitbox))
+            if (DrawUtil.Checkbox("绘制gig(鱼叉) hitbox", ref Service.Configuration.AutoGigDrawGigHitbox))
             {
                 Service.Configuration.Save();
             }
@@ -68,11 +68,11 @@ internal class TabAutoGig : TabBaseConfig
     private void DrawSpeedSize()
     {
         ImGui.Spacing();
-        ImGui.TextWrapped("Select the Size and Speed of the fish you want (Gatherbuddy's Spearfishing overlay helps a lot)");
+        ImGui.TextWrapped("选择你想要的鱼的大小和速度(Gatherbuddy的刺鱼overlay有很大帮助)");
         ImGui.Spacing();
 
         ImGui.SetNextItemWidth(130);
-        if (ImGui.BeginCombo("Size", Service.Configuration.currentSize.ToName()))
+        if (ImGui.BeginCombo("大小", Service.Configuration.currentSize.ToName()))
         {
 
             foreach (SpearfishSize size in _sizeTypes.Where(size =>
@@ -86,7 +86,7 @@ internal class TabAutoGig : TabBaseConfig
         ImGui.SameLine();
 
         ImGui.SetNextItemWidth(130);
-        if (ImGui.BeginCombo("Speed", Service.Configuration.currentSpeed.ToName()))
+        if (ImGui.BeginCombo("移速", Service.Configuration.currentSpeed.ToName()))
         {
             foreach (SpearfishSpeed speed in _speedTypes.Where(speed =>
                         ImGui.Selectable(speed.ToName(), speed == Service.Configuration.currentSpeed)))

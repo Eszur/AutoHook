@@ -13,16 +13,16 @@ namespace AutoHook.Ui;
 internal class TabGeneral : TabBaseConfig
 {
     public override bool Enabled => true;
-    public override string TabName => "General";
+    public override string TabName => "一般设置";
 
     public override void DrawHeader()
     {
-        ImGui.Text("General settings");
+        ImGui.Text("一般设置");
 
         ImGui.Separator();
 
         ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
-        ImGui.TextWrapped("Check the new changes in the Changelog below");
+        ImGui.TextWrapped("在下面的更新日志中查看新的变化");
         ImGui.PopStyleColor();
 
         ImGui.Spacing();
@@ -31,7 +31,7 @@ internal class TabGeneral : TabBaseConfig
 
         ImGui.Spacing();
 
-        if (ImGui.Button("Click here to report an issue or make a suggestion"))
+        if (ImGui.Button("点击这里报告一个问题或提出一个建议"))
         {
             Process.Start(new ProcessStartInfo { FileName = "https://github.com/InitialDet/AutoHook/issues", UseShellExecute = true });
         }
@@ -41,9 +41,9 @@ internal class TabGeneral : TabBaseConfig
 #if DEBUG
 
         ImGui.SameLine();
-        if (ImGui.Button("Testing"))
+        if (ImGui.Button("测试"))
         {
-            ImGui.OpenPopup("changelog");
+            ImGui.OpenPopup("更新日志");
         }
 
 #endif
@@ -78,8 +78,10 @@ internal class TabGeneral : TabBaseConfig
     public void DrawDefaultCast()
     {
         ImGui.Spacing();
-        ImGui.Checkbox("Use Default Cast", ref Service.Configuration.DefaultCastConfig.Enabled);
-        ImGuiComponents.HelpMarker("This is the default hooking behavior if no Custom Preset is found.");
+        // Use Default Cast
+        ImGui.Checkbox("使用默认抛竿", ref Service.Configuration.DefaultCastConfig.Enabled);
+        // This is the default hooking behavior if no Custom Preset is found.
+        ImGuiComponents.HelpMarker("如果没有找到自定义预设，这就是默认的提钩行为。");
 
         ImGui.Indent();
 
@@ -97,8 +99,10 @@ internal class TabGeneral : TabBaseConfig
     public void DrawDefaultMooch()
     {
         ImGui.Spacing();
-        ImGui.Checkbox("Use Default Mooch", ref Service.Configuration.DefaultMoochConfig.Enabled);
-        ImGuiComponents.HelpMarker("This is the default hooking behavior if no Custom Preset is found.");
+        // Use Default Mooch
+        ImGui.Checkbox("使用默认以小钓大", ref Service.Configuration.DefaultMoochConfig.Enabled);
+        // This is the default hooking behavior if no Custom Preset is found.
+        ImGuiComponents.HelpMarker("如果没有找到自定义预设，这就是默认的挂钩行为。");
 
         ImGui.Indent();
 
@@ -115,7 +119,7 @@ internal class TabGeneral : TabBaseConfig
     bool openChangelog = false;
     private void DrawChangelog()
     {
-        if (ImGui.Button("Changelog"))
+        if (ImGui.Button("更新日志"))
         {
             //ImGui.OpenPopup("changelog");
             openChangelog = !openChangelog;
@@ -129,7 +133,7 @@ internal class TabGeneral : TabBaseConfig
         if (openChangelog)
         {
             ImGui.SetNextWindowSize(new Vector2(400, 0));
-            if (ImGui.Begin("Changelog", ref openChangelog, ImGuiWindowFlags.AlwaysAutoResize))
+            if (ImGui.Begin("更新日志", ref openChangelog, ImGuiWindowFlags.AlwaysAutoResize))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
                 ImGui.TextWrapped("2.4.4.0");
